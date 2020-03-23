@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TempMonitorCore\TempMonitorCore.csproj" />
+    <ProjectReference Include="..\TempMonitorDAL\TempMonitorDAL.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

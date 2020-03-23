@@ -1,9 +1,9 @@
-﻿using System;
-using System.Linq;
-using OpenHardwareMonitor.Hardware;
-
-namespace TempMonitorCore
+﻿namespace TempMonitorCore
 {
+    using System;
+    using System.Linq;
+    using OpenHardwareMonitor.Hardware;
+
     public class TempMonitor
     {
         public int getCPUTemp()
