@@ -3,30 +3,33 @@ import React, { Component } from 'react';
 export class Home extends Component {
   static displayName = Home.name;
 
+  constructor(props) {
+    super(props);
+    this.state = { temps: {} };
+    this.populateTempData = this.populateTempData.bind(this);
+    this.refreshState = this.refreshState.bind(this);
+  }
+
+  async populateTempData() {
+    const response = await fetch('temp');
+    const data = await response.json();
+    this.setState({ cpu: data[0].temp, gpu: data[1].temp });
+  }
+
   render() {
-
-    let contents = this.state.loading
-      ? <p><em>Loading...</em></p>
-      : FetchData.renderForecastsTable(this.state.forecasts);
-
     return (
-
       <div>
+        <h1>CPU temp: {this.state.cpu}</h1>
+        <h1>GPU temp: {this.state.gpu}</h1>
       </div>
     );
   }
 
-  componentDidMount() {
-    this.interval = setInterval(() => this.setState({ time: Date.now() }), 1000);
+  refreshState() {
+    this.populateTempData();
   }
 
-  componentWillUnmount() {
-    clearInterval(this.interval);
-  }
-  
-  async populateTempData() {
-    const response = await fetch('temps');
-    const data = await response.json();
-    this.setState({ temps: data, loading: false });
+  componentDidMount() {
+    this.refreshState();
   }
 }

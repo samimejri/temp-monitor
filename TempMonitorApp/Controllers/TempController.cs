@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.IO;
+using LiteDB;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using TempMonitorDAL;
+using Microsoft.AspNetCore.SignalR;
 
 namespace TempMonitorApp.Controllers
 {
@@ -20,15 +20,15 @@ namespace TempMonitorApp.Controllers
         }
 
         [HttpGet]
-        public TempMeasure GetCPUTemp()
-        {
-            return null;
-        }
-
-        [HttpGet]
         public IEnumerable<TempMeasure> Get()
         {
-            return null;
+            DBLiteDatabaseManager dbManager = DBLiteDatabaseManager.GetInstance($"{Path.GetTempPath()}\\TempMonitor\\TempMonitor.db");
+            List<TempMeasure> temps = new List<TempMeasure>();
+
+            temps.Add(dbManager.CPUTempMeasures.FindOne(Query.All(Query.Descending)));
+            temps.Add(dbManager.GPUTempMeasures.FindOne(Query.All(Query.Descending)));
+
+            return temps;
         }
     }
 }
