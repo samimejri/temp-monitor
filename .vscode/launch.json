@@ -12,14 +12,25 @@
             "program": "${workspaceFolder}/TempMonitorConsole/bin/Debug/net48/TempMonitorConsole.exe",
             "args": [],
             "cwd": "${workspaceFolder}",
-            "console": "internalConsole",
-            "stopAtEntry": false
+            "stopAtEntry": false,
+            "console": "internalConsole"
         },
         {
-            "name": ".NET Core Attach",
-            "type": "clr",
-            "request": "attach",
-            "processId": "${command:pickProcess}"
+            "name": ".NET Core Launch (web)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/TempMonitorApp/bin/Debug/netcoreapp3.1/TempMonitorApp.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/TempMonitorApp/",
+            "stopAtEntry": false,
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "^\\s*Now listening on:\\s+(https?://\\S+)"
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            }
         }
     ]
 }
