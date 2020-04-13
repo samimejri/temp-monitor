@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import * as signalR from '@microsoft/signalr';
+//import { LogLevel, HubConnection, TransportType,  Logger} from '@microsoft/signalr';
 
 export class Home extends Component {
   static displayName = Home.name;
@@ -30,6 +32,20 @@ export class Home extends Component {
   }
 
   componentDidMount() {
+    const hubConnection = new signalR.HubConnectionBuilder()
+      .withUrl("/tempHub")
+      .configureLogging(signalR.LogLevel.Information)
+      .build();
+
+    hubConnection
+      .start()
+      .then(() => console.log('Connection started! Yaaaaay'))
+      .catch(err => console.log('Error while establishing connection :('));
+
+    hubConnection.on('ReceiveMessage', (receivedMessage) => {
+      console.log(receivedMessage);
+    });
+
     this.refreshState();
   }
 }

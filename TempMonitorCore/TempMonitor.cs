@@ -6,7 +6,7 @@
 
     public class TempMonitor
     {
-        public int getCPUTemp()
+        public object getCPUTemp()
         {
 
             Computer computer = new Computer() { CPUEnabled = true, GPUEnabled = true };
@@ -14,9 +14,10 @@
             {
                 computer.Open();
                 var CPU = computer.Hardware.Where(h => h.HardwareType == HardwareType.CPU).FirstOrDefault();
+                var cores = CPU.Sensors.Where(s => s.SensorType == SensorType.Temperature && s.Name.Contains("Core")).Select(core => new {Name = core.Name, Temp= core.Value});
                 var cpuTemp = CPU.Sensors.Where(s => s.SensorType == SensorType.Temperature && s.Name.Contains("Package")).FirstOrDefault().Value;
                 computer.Close();
-                return Convert.ToInt32(cpuTemp);
+                return new {Temp = cpuTemp, cores = cores};
             }
             catch (Exception e)
             {

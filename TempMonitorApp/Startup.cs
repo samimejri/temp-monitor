@@ -57,6 +57,8 @@ namespace TempMonitorApp
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
+                    
+                endpoints.MapHub<TempHub>("/TempHub");
             });
 
             app.UseSpa(spa =>

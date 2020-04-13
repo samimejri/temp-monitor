@@ -4,7 +4,6 @@ using LiteDB;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using TempMonitorDAL;
-using Microsoft.AspNetCore.SignalR;
 
 namespace TempMonitorApp.Controllers
 {
